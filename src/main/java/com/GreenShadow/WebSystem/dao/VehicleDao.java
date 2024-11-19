@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VehicleDao extends JpaRepository<VehicleEntity,String> {
-    VehicleEntity getVehicleEntitiesByVehicleCode(String vehicleCode);
+    VehicleEntity getVehicleEntityByVehicleCode(String vehicleCode);
 }

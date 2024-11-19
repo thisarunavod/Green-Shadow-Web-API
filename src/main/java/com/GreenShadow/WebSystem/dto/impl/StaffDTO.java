@@ -39,7 +39,7 @@ public class StaffDTO implements SuperDTO, StaffResponse {
 
     private List<FieldStaffDetails> fieldStaffDetails
             = new ArrayList<>();
-    private List<VehicleEntity> vehicleList
+    private List<String> vehicleCodeList
             = new ArrayList<>();
     private List<StaffLogDetails> staffLogDetails
             = new ArrayList<>();

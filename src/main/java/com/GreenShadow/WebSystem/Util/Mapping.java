@@ -67,19 +67,33 @@ public class Mapping {
         return modelMapper.map(dto, StaffEntity.class);
     }
     public StaffDTO convertToStaffDTO(StaffEntity entity) {
-        return modelMapper.map(entity, StaffDTO.class);
+        StaffDTO staffDTO = modelMapper.map(entity, StaffDTO.class);
+        List<String> vehicleCodeList = new ArrayList<>();
+        for (VehicleEntity vehicleEntity: entity.getVehicleList()) {
+            vehicleCodeList.add(vehicleEntity.getVehicleCode());
+        }
+        staffDTO.setVehicleCodeList(vehicleCodeList);
+        return staffDTO;
     }
 
     public List<StaffDTO> convertToStaffDTOList(List<StaffEntity> staffEntityList){
-        return modelMapper.map(staffEntityList, new TypeToken<List<StaffDTO>>() {}.getType());
+        /*Object map = modelMapper.map(staffEntityList, new TypeToken<List<StaffDTO>>() {}.getType());*/
+        ArrayList<StaffDTO> staffDTOList = new ArrayList<>();
+        for (StaffEntity entity: staffEntityList ) {
+            staffDTOList.add(
+                    convertToStaffDTO(entity)
+            );
+        }
+        return staffDTOList;
     }
 
     public VehicleEntity convertToVehicleEntity(VehicleDTO dto){
         return modelMapper.map(dto, VehicleEntity.class);
     }
     public VehicleDTO convertToVehicleDTO(VehicleEntity entity) {
-
-        return modelMapper.map(entity, VehicleDTO.class);
+        VehicleDTO vehicleDTO = modelMapper.map(entity, VehicleDTO.class);
+        if (entity.getStaff() != null) vehicleDTO.setStaffId(entity.getStaff().getId());
+        return vehicleDTO;
     }
 
     public List<VehicleDTO> convertToVehicleDTOList(List<VehicleEntity> vehicleEntityList){

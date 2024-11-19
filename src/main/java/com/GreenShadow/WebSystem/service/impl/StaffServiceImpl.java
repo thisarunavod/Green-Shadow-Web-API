@@ -6,10 +6,12 @@ import com.GreenShadow.WebSystem.customObj.FieldResponse;
 import com.GreenShadow.WebSystem.customObj.StaffErrorResponse;
 import com.GreenShadow.WebSystem.customObj.StaffResponse;
 import com.GreenShadow.WebSystem.dao.StaffDao;
+import com.GreenShadow.WebSystem.dao.VehicleDao;
 import com.GreenShadow.WebSystem.dto.impl.FieldDTO;
 import com.GreenShadow.WebSystem.dto.impl.StaffDTO;
 import com.GreenShadow.WebSystem.entity.CropEntity;
 import com.GreenShadow.WebSystem.entity.StaffEntity;
+import com.GreenShadow.WebSystem.entity.VehicleEntity;
 import com.GreenShadow.WebSystem.exeption.DataPersistFailedException;
 import com.GreenShadow.WebSystem.exeption.FieldNotFoundExeption;
 import com.GreenShadow.WebSystem.exeption.StaffNotFoundException;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     StaffDao staffDao;
+
+    @Autowired
+    VehicleDao vehicleDao;
 
     @Override
     public void saveStaffMem(StaffDTO staffDTO) {
@@ -59,7 +65,15 @@ public class StaffServiceImpl implements StaffService {
         tmpStaffEntityById.get().setEmail(staffDTO.getEmail());
         tmpStaffEntityById.get().setRole(staffDTO.getRole());
         tmpStaffEntityById.get().setFieldStaffDetails(staffDTO.getFieldStaffDetails());
-        tmpStaffEntityById.get().setVehicleList(staffDTO.getVehicleList());
+
+        ArrayList<VehicleEntity> vehicleEntitiesList = new ArrayList<>();
+        for (String vehicleCode: staffDTO.getVehicleCodeList()) {
+            vehicleEntitiesList.add(
+                    vehicleDao.getVehicleEntityByVehicleCode(vehicleCode)
+            );
+        }
+
+        tmpStaffEntityById.get().setVehicleList(vehicleEntitiesList);
         tmpStaffEntityById.get().setStaffLogDetails(staffDTO.getStaffLogDetails());
 
     }

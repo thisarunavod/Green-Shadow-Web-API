@@ -1,6 +1,8 @@
 package com.GreenShadow.WebSystem.service.impl;
 
 import com.GreenShadow.WebSystem.Util.Mapping;
+import com.GreenShadow.WebSystem.customObj.StaffErrorResponse;
+import com.GreenShadow.WebSystem.customObj.VehicleErrorResponse;
 import com.GreenShadow.WebSystem.customObj.VehicleResponse;
 import com.GreenShadow.WebSystem.dao.StaffDao;
 import com.GreenShadow.WebSystem.dao.VehicleDao;
@@ -68,11 +70,16 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleResponse getSelectedVehicle(String vehicleCode) {
-        return null;
+        System.out.println(vehicleCode);
+        if (vehicleDao.existsById(vehicleCode)) {
+            return mapping.convertToVehicleDTO(vehicleDao.getVehicleEntityByVehicleCode(vehicleCode));
+        }
+        return new VehicleErrorResponse(0,"Vehicle Not Found");
+
     }
 
     @Override
     public List<VehicleDTO> getAllVehicles() {
-        return null;
+        return mapping.convertToVehicleDTOList(vehicleDao.findAll());
     }
 }
