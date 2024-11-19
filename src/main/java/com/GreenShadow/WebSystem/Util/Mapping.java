@@ -4,9 +4,11 @@ package com.GreenShadow.WebSystem.Util;
 import com.GreenShadow.WebSystem.dto.impl.CropDTO;
 import com.GreenShadow.WebSystem.dto.impl.FieldDTO;
 import com.GreenShadow.WebSystem.dto.impl.StaffDTO;
+import com.GreenShadow.WebSystem.dto.impl.VehicleDTO;
 import com.GreenShadow.WebSystem.entity.CropEntity;
 import com.GreenShadow.WebSystem.entity.FieldEntity;
 import com.GreenShadow.WebSystem.entity.StaffEntity;
+import com.GreenShadow.WebSystem.entity.VehicleEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,32 +74,16 @@ public class Mapping {
         return modelMapper.map(staffEntityList, new TypeToken<List<StaffDTO>>() {}.getType());
     }
 
+    public VehicleEntity convertToVehicleEntity(VehicleDTO dto){
+        return modelMapper.map(dto, VehicleEntity.class);
+    }
+    public VehicleDTO convertToVehicleDTO(VehicleEntity entity) {
 
-
-
-    /*public NoteDTO convertToDTO(NoteEntity noteEntity){
-        return modelMapper.map(noteEntity,NoteDTO.class);  *//* meya auto karala denawa *//*
+        return modelMapper.map(entity, VehicleDTO.class);
     }
 
-    public NoteEntity convertToEntity(NoteDTO dto){
-        return modelMapper.map(dto,NoteEntity.class);  *//* meya auto karala denawa *//*
+    public List<VehicleDTO> convertToVehicleDTOList(List<VehicleEntity> vehicleEntityList){
+        return modelMapper.map(vehicleEntityList, new TypeToken<List<VehicleDTO>>() {}.getType());
     }
-
-    public List<NoteDTO> convertToDTOList(List<NoteEntity> notes){
-        return modelMapper.map(notes,new TypeToken<List<NoteDTO>>() {}.getType());  *//* meya auto karala denawa *//*
-    }
-
-
-    public UserDTO convertToUserDTO(UserEntity userEntity){
-        return modelMapper.map(userEntity,UserDTO.class);
-    }
-
-    public UserEntity convertToUserEntity(UserDTO dto){
-        return modelMapper.map(dto,UserEntity.class);
-    }
-
-    public List<UserDTO> convertToUserDTOList(List<UserEntity> users){
-        return modelMapper.map(users,new TypeToken<List<UserDTO>>() {}.getType());
-    }*/
 
 }

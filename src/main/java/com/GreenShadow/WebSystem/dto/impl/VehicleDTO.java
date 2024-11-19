@@ -22,7 +22,7 @@ public class VehicleDTO implements SuperDTO , VehicleResponse {
     private String category;
     private String fuelType;
     private String status;
-    private StaffDTO staff;
+    private String staffId;
     private String remarks;
 
 }

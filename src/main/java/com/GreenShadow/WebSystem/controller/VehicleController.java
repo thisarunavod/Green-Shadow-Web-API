@@ -1,34 +1,35 @@
 package com.GreenShadow.WebSystem.controller;
 
-import com.GreenShadow.WebSystem.customObj.StaffResponse;
 import com.GreenShadow.WebSystem.dto.impl.StaffDTO;
+import com.GreenShadow.WebSystem.dto.impl.VehicleDTO;
 import com.GreenShadow.WebSystem.exeption.DataPersistFailedException;
 import com.GreenShadow.WebSystem.exeption.StaffNotFoundException;
-import com.GreenShadow.WebSystem.service.StaffService;
+import com.GreenShadow.WebSystem.exeption.VehicleNotFoundException;
+import com.GreenShadow.WebSystem.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("api/v1/staff")
-public class StaffController {
+@RequestMapping("api/v1/vehicle")
+public class VehicleController {
+
+
 
     @Autowired
-    StaffService staffService;
-
+    VehicleService vehicleService;
     @GetMapping
-    public String healthCheck(){ return "Staff Controller is running Successfully";}
+    public String healthCheck(){ return "Vehicle Controller is running Successfully";}
+
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveStaffMem(@RequestBody StaffDTO staffDTO){
+    public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO){
 
-        if (staffDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (vehicleDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {
-            staffService.saveStaffMem(staffDTO);
+            vehicleService.saveVehicle(vehicleDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -37,35 +38,28 @@ public class StaffController {
         }
     }
 
-    @PatchMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateStaffMember(@PathVariable("id") String id , @RequestBody StaffDTO staffDTO){
 
+    @PatchMapping(value = "/{vehicleCode}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateVehicle(@PathVariable("vehicleCode") String vehicleCode , @RequestBody VehicleDTO vehicleDTO){
         try {
 
-            if (staffDTO == null && (id == null || id.isEmpty())){
+            if (vehicleDTO == null && (vehicleCode== null || vehicleCode.isEmpty())){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            staffService.updateStaffMem(id, staffDTO);
+            vehicleService.updateVehicle(vehicleCode, vehicleDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        }catch (StaffNotFoundException e){
+        }catch (VehicleNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public StaffResponse getStaffMember(@PathVariable("id") String id){
-        return staffService.getSelectedStaffMem(id);
-    }
-    @GetMapping(value = "allStaffMembers",produces = MediaType.APPLICATION_JSON_VALUE)  /* jacksoStaffMembers object bind karanne */
-    public List<StaffDTO> getAllStaffMembers(){return staffService.getAllStaffMem(); }
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteStaffMem(@PathVariable ("id") String id) {
+    @DeleteMapping(value = "/{vehicleCode}")
+    public ResponseEntity<Void> deleteVehicle(@PathVariable ("vehicleCode") String vehicleCode) {
         try {
-            staffService.deleteStaffMem(id);
+            vehicleService.deleteVehicle(vehicleCode);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (StaffNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -74,7 +68,5 @@ public class StaffController {
         }
 
     }
-
-
 
 }
