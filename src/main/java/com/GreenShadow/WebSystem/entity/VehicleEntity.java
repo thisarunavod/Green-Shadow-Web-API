@@ -28,10 +28,6 @@ public class VehicleEntity {
     @JoinColumn(name = "staffId")
     private StaffEntity staff;
 
-    @ManyToOne
-    @JoinColumn(name = "fieldCode")
-    private FieldEntity field;
-
     private String remarks;
 
 
