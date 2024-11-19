@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.CharsetEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -25,7 +26,22 @@ public class Mapping {
         return modelMapper.map(dto, FieldEntity.class);
     }
     public FieldDTO convertToFieldDTO(FieldEntity entity) {
-        return modelMapper.map(entity, FieldDTO.class);
+
+        List<CropEntity> cropList = entity.getCropList();
+        List<String> cropCodeList = new ArrayList<>();
+        for (CropEntity cropEntity : cropList ) {
+            cropCodeList.add(cropEntity.getCropCode());
+        }
+        return new FieldDTO(
+                entity.getFieldCode(),
+                entity.getFieldName(),
+                entity.getFieldLocation(),
+                entity.getExtentSizeOfTheField(),
+                entity.getFieldImage1(),
+                entity.getFieldImage2(),
+                cropCodeList
+        );
+
     }
 
     public List<FieldDTO> convertToFieldDTOList(List<FieldEntity> fieldEntityList){

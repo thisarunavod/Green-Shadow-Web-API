@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
 
+import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,9 +26,9 @@ public class FieldDTO implements SuperDTO , FieldResponse {
     private String fieldImage1;
     private String fieldImage2;
 
-    /*private List<CropEntity> cropList;
+    private List<String> cropCodeList;
 
-    private List<FieldStaffDetails> fieldStaffDetails
+    /*private List<FieldStaffDetails> fieldStaffDetails
             = new ArrayList<>();
     private List<EquipmentEntity> equipmentList
             = new ArrayList<>();
