@@ -30,6 +30,4 @@ public class EquipmentEntity {
     @ManyToOne
     @JoinColumn(name = "fieldCode")
     private FieldEntity field;
-
-
 }

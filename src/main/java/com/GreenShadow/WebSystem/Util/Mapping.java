@@ -1,14 +1,8 @@
 package com.GreenShadow.WebSystem.Util;
 
 
-import com.GreenShadow.WebSystem.dto.impl.CropDTO;
-import com.GreenShadow.WebSystem.dto.impl.FieldDTO;
-import com.GreenShadow.WebSystem.dto.impl.StaffDTO;
-import com.GreenShadow.WebSystem.dto.impl.VehicleDTO;
-import com.GreenShadow.WebSystem.entity.CropEntity;
-import com.GreenShadow.WebSystem.entity.FieldEntity;
-import com.GreenShadow.WebSystem.entity.StaffEntity;
-import com.GreenShadow.WebSystem.entity.VehicleEntity;
+import com.GreenShadow.WebSystem.dto.impl.*;
+import com.GreenShadow.WebSystem.entity.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +92,19 @@ public class Mapping {
 
     public List<VehicleDTO> convertToVehicleDTOList(List<VehicleEntity> vehicleEntityList){
         return modelMapper.map(vehicleEntityList, new TypeToken<List<VehicleDTO>>() {}.getType());
+    }
+
+    public EquipmentEntity convertToEquipmentEntity(EquipmentDTO dto){
+        return modelMapper.map(dto, EquipmentEntity.class);
+    }
+    public EquipmentDTO convertToEquipmentDTO(FieldEntity entity) {
+
+        return null;
+    }
+
+    public List<EquipmentDTO> convertToEquipmentDTOList(List<EquipmentEntity> equipmentEntityList){
+        /*return modelMapper.map(fieldEntityList, new TypeToken<List<FieldDTO>>() {}.getType());*/
+        return null;
     }
 
 }
