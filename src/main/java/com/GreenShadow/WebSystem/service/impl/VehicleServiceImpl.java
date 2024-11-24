@@ -82,4 +82,6 @@ public class VehicleServiceImpl implements VehicleService {
     public List<VehicleDTO> getAllVehicles() {
         return mapping.convertToVehicleDTOList(vehicleDao.findAll());
     }
+
+
 }

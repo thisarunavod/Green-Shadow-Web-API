@@ -61,18 +61,18 @@ public class VehicleController {
     }
     @GetMapping(value = "allVehicles",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VehicleDTO> getAllVehicles(){ return vehicleService.getAllVehicles(); }
+
     @DeleteMapping(value = "/{vehicleCode}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable ("vehicleCode") String vehicleCode) {
         try {
             vehicleService.deleteVehicle(vehicleCode);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (StaffNotFoundException e) {
+        } catch (VehicleNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
-
 
 }

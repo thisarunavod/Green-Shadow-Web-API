@@ -1,7 +1,9 @@
 package com.GreenShadow.WebSystem.service.impl;
 
 import com.GreenShadow.WebSystem.Util.Mapping;
+import com.GreenShadow.WebSystem.customObj.EquipmentErrorResponse;
 import com.GreenShadow.WebSystem.customObj.EquipmentResponse;
+import com.GreenShadow.WebSystem.customObj.VehicleErrorResponse;
 import com.GreenShadow.WebSystem.dao.EquipmentDao;
 import com.GreenShadow.WebSystem.dao.FieldDao;
 import com.GreenShadow.WebSystem.dao.StaffDao;
@@ -64,16 +66,22 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public void deleteEquipment(String equipmentId) {
-
+        Optional<EquipmentEntity> tmpEquipmentEntity = equipmentDao.findById(equipmentId);
+        if (tmpEquipmentEntity.isEmpty()) throw new VehicleNotFoundException("Equipment Not Found");
+        equipmentDao.deleteById(equipmentId);
     }
 
     @Override
     public EquipmentResponse getSelectedEquipment(String equipmentId) {
-        return null;
+
+        if (equipmentDao.existsById(equipmentId)) {
+            return mapping.convertToEquipmentDTO(equipmentDao.getEquipmentEntityByEquipmentId(equipmentId));
+        }
+        return new EquipmentErrorResponse(0,"Equipment Not Found");
     }
 
     @Override
     public List<EquipmentDTO> getAllEquipment() {
-        return null;
+        return mapping.convertToEquipmentDTOList(equipmentDao.findAll());
     }
 }

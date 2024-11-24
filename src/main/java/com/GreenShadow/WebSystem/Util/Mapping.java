@@ -97,14 +97,22 @@ public class Mapping {
     public EquipmentEntity convertToEquipmentEntity(EquipmentDTO dto){
         return modelMapper.map(dto, EquipmentEntity.class);
     }
-    public EquipmentDTO convertToEquipmentDTO(FieldEntity entity) {
+    public EquipmentDTO convertToEquipmentDTO(EquipmentEntity entity) {
+        EquipmentDTO equipmentDTO = modelMapper.map(entity, EquipmentDTO.class);
 
-        return null;
+        if (entity.getStaff() != null )equipmentDTO.setStaffId(entity.getStaff().getId());
+        if (entity.getField() != null) equipmentDTO.setFieldCode(entity.getField().getFieldCode());
+        return equipmentDTO;
+
     }
 
     public List<EquipmentDTO> convertToEquipmentDTOList(List<EquipmentEntity> equipmentEntityList){
         /*return modelMapper.map(fieldEntityList, new TypeToken<List<FieldDTO>>() {}.getType());*/
-        return null;
+        ArrayList<EquipmentDTO> equipmentDTOList = new ArrayList<>();
+        for (EquipmentEntity entity: equipmentEntityList ) {
+            equipmentDTOList.add( convertToEquipmentDTO(entity) );
+        }
+        return equipmentDTOList;
     }
 
 }
