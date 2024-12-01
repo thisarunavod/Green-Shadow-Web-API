@@ -13,4 +13,5 @@ public interface CropService {
     void deleteCrop( String cropCode );
     CropResponse getSelectedCrop(String cropCode );
     List<CropDTO> getAllCrops();
+    List<CropDTO> getAllCropsByFieldCode(String fieldCode);
 }

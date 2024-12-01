@@ -23,14 +23,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/field")
+@CrossOrigin
 public class FieldController {
 
     @Autowired
     private FieldService fieldService;
 
-    @GetMapping
-    public String healthCheck(){ return "Field Controller is running Successfully";}
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public String generateNewFieldCode(){
+        return fieldService.generateNewFieldCode();
+    }
 
+    @CrossOrigin
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveField(
             @RequestPart("fieldCode") String fieldCode,
@@ -38,7 +42,7 @@ public class FieldController {
             @RequestPart("fieldLocationX") String fieldLocationX,
             @RequestPart("fieldLocationY") String fieldLocationY,
             @RequestPart("extentSizeOfTheField") String extentSizeOfTheField,
-            @RequestPart("fieldImage1") MultipartFile fieldImage1,
+            @RequestPart("fieldImage1" ) MultipartFile fieldImage1,
             @RequestPart("fieldImage2") MultipartFile fieldImage2 ){
 
 
@@ -86,19 +90,30 @@ public class FieldController {
         return fieldService.getSelectedField(fieldCode);
     }
 
+
     @PatchMapping(value = "/{fieldCode}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateField(@PathVariable("fieldCode") String fieldCode,
                                               @RequestPart("fieldName") String fieldName,
                                               @RequestPart("fieldLocationX") String fieldLocationX,
                                               @RequestPart("fieldLocationY") String fieldLocationY,
                                               @RequestPart("extentSizeOfTheField") String extentSizeOfTheField,
-                                              @RequestPart("fieldImage1") MultipartFile fieldImage1,
-                                              @RequestPart("fieldImage2") MultipartFile fieldImage2){
+                                              @RequestPart("fieldImage1" ) MultipartFile fieldImage1,
+                                              @RequestPart("fieldImage2" ) MultipartFile fieldImage2){
+        System.out.println(fieldImage1.isEmpty());
+        System.out.println(fieldImage2.isEmpty());
         try {
-            byte[] fieldImage1ByteCollection = fieldImage1.getBytes();
-            byte[] fieldImage2ByteCollection = fieldImage2.getBytes();
-            String updateBase64fieldImage1 = AppUtil.toBase64ProfilePic(fieldImage1ByteCollection);
-            String updateBase64fieldImage2 = AppUtil.toBase64ProfilePic(fieldImage2ByteCollection);
+            byte[] fieldImage1ByteCollection = null;
+            byte[] fieldImage2ByteCollection = null;
+            String updateBase64fieldImage1 = null;
+            String updateBase64fieldImage2 = null;
+            if (fieldImage1 != null){
+                fieldImage1ByteCollection = fieldImage1.getBytes();
+                updateBase64fieldImage1 = AppUtil.toBase64ProfilePic(fieldImage1ByteCollection);
+            }
+            if (fieldImage2 != null){
+                fieldImage2ByteCollection = fieldImage2.getBytes();
+                updateBase64fieldImage2 = AppUtil.toBase64ProfilePic(fieldImage2ByteCollection);
+            }
 
             double longitude = Double.parseDouble(fieldLocationX);
             double latitude  = Double.parseDouble(fieldLocationY);
@@ -106,6 +121,7 @@ public class FieldController {
             Point point = geometryFactory.createPoint(new Coordinate(longitude, latitude));
 
             FieldDTO fieldDTO = new FieldDTO();
+
             fieldDTO.setFieldName(fieldName);
             fieldDTO.setFieldImage1(updateBase64fieldImage1);
             fieldDTO.setFieldImage2(updateBase64fieldImage2);

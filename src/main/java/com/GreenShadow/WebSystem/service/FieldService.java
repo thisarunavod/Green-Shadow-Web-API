@@ -12,4 +12,5 @@ public interface FieldService {
     void deleteField( String field_code );
     FieldResponse getSelectedField(String field_code );
     List<FieldDTO> getAllFields();
+    String generateNewFieldCode();
 }

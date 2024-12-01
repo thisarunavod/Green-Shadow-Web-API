@@ -24,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/crop")
+@CrossOrigin
 public class CropController {
 
 
@@ -129,4 +130,11 @@ public class CropController {
     public List<CropDTO> getAllCrops(){
         return cropService.getAllCrops();
     }
+
+    @GetMapping(value = "getAllCropsByField/{fieldCode}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropDTO> getAllCropsByField(@PathVariable ("fieldCode") String fieldCode){
+        return cropService.getAllCropsByFieldCode(fieldCode);
+    }
+
+
 }

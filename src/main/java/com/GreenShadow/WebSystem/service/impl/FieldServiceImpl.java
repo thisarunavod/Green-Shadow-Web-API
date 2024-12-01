@@ -45,8 +45,8 @@ public class FieldServiceImpl implements FieldService {
 
         tmpFieldEntityById.get().setFieldName(fieldDTO.getFieldName());
         tmpFieldEntityById.get().setExtentSizeOfTheField(fieldDTO.getExtentSizeOfTheField());
-        tmpFieldEntityById.get().setFieldLocation(fieldDTO.getFieldLocation());
         tmpFieldEntityById.get().setFieldImage1(fieldDTO.getFieldImage1());
+        tmpFieldEntityById.get().setFieldLocation(fieldDTO.getFieldLocation());
         tmpFieldEntityById.get().setFieldImage2(fieldDTO.getFieldImage2());
 
 
@@ -70,5 +70,20 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public List<FieldDTO> getAllFields() {
         return mapping.convertToFieldDTOList(fieldDao.findAll());
+    }
+
+    @Override
+    public String generateNewFieldCode() {
+        try {
+            List<FieldDTO> allFieldList = getAllFields();
+            String id = allFieldList .get(allFieldList .size() - 1).getFieldCode();
+            char[] charArray = id.toCharArray();
+            String newID = "";
+            for (int i = 2; i <= charArray.length-1 ; i++) { newID = newID + (charArray[i]); }
+            int x = Integer.parseInt(newID);
+            return "FE"+(x+1);
+        } catch (Exception e) {
+            return "FE1";
+        }
     }
 }

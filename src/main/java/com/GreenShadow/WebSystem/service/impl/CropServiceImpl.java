@@ -78,4 +78,10 @@ public class CropServiceImpl implements CropService {
         return mapping.convertToCropDTOList(cropDao.findAll());
     }
 
+    @Override
+    public List<CropDTO> getAllCropsByFieldCode(String fieldCode) {
+        return mapping.convertToCropDTOList(cropDao.findAllByField_FieldCode(fieldCode));
+    }
+
+
 }
