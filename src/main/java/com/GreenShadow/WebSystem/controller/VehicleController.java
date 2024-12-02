@@ -18,18 +18,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/vehicle")
+@CrossOrigin
 public class VehicleController {
-
-
 
     @Autowired
     VehicleService vehicleService;
+
     @GetMapping
-    public String healthCheck(){ return "Vehicle Controller is running Successfully";}
+    public String generateNewVehicleCode(){ return vehicleService.generateNewVehicleCode();}
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO){
 
         if (vehicleDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (vehicleDTO.getStaffId().isEmpty())  vehicleDTO.setStaffId(null);
         try {
             vehicleService.saveVehicle(vehicleDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

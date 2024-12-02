@@ -28,7 +28,7 @@ public class StaffController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveStaffMem(@RequestBody StaffDTO staffDTO){
-        System.out.println(staffDTO);
+
 
         if (staffDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {
@@ -45,7 +45,6 @@ public class StaffController {
     public ResponseEntity<Void> updateStaffMember(@PathVariable("id") String id , @RequestBody StaffDTO staffDTO){
 
         try {
-
             if (staffDTO == null && (id == null || id.isEmpty())){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }

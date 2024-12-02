@@ -87,10 +87,11 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public StaffResponse getSelectedStaffMem(String id) {
+        System.out.println(id);
         if (staffDao.existsById(id)) {
             return mapping.convertToStaffDTO(staffDao.getStaffEntityById(id));
         }
-        return new StaffErrorResponse(0,"Crop Not Found");
+        return new StaffErrorResponse(0,"Staff Not Found");
     }
 
     @Override

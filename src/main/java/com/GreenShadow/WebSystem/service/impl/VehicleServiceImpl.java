@@ -83,5 +83,20 @@ public class VehicleServiceImpl implements VehicleService {
         return mapping.convertToVehicleDTOList(vehicleDao.findAll());
     }
 
+    @Override
+    public String generateNewVehicleCode() {
+        try {
+            List<String> allVehicleCodeList = vehicleDao.findAllvehicleCodes();
+            String id = allVehicleCodeList.get(allVehicleCodeList .size() - 1);
+            char[] charArray = id.toCharArray();
+            String newID = "";
+            for (int i = 4; i <= charArray.length-1 ; i++) { newID = newID + (charArray[i]); }
+            int x = Integer.parseInt(newID);
+            return "VEH_"+(x+1);
+        } catch (Exception e) {
+            return "VEH_1";
+        }
+    }
+
 
 }

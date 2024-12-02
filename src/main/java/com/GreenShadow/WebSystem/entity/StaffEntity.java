@@ -28,6 +28,7 @@ public class StaffEntity {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private LocalDate joinedDate;
     private LocalDate dateOfBirth;
 
@@ -40,6 +41,7 @@ public class StaffEntity {
     private String contactNo;
     private String email;
 
+    @Column(columnDefinition = "VARCHAR(100)")
     @Enumerated(EnumType.STRING)
     private Role role;
 
