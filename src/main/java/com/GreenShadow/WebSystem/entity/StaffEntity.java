@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,18 +16,20 @@ import java.util.List;
 
 @Entity(name = "staff")
 public class StaffEntity {
+
     @Id
     private String id;
 
     private String firstName;
     private String lastName;
-    private String designation;
+
+    @Enumerated(EnumType.STRING)
+    private Designation designation;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    private Date joinedDate;
-    private Date dateOfBirth;
+    private LocalDate joinedDate;
+    private LocalDate dateOfBirth;
 
     private String addressLine1;
     private String addressLine2;

@@ -15,16 +15,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/staff")
+@CrossOrigin
 public class StaffController {
 
     @Autowired
     StaffService staffService;
 
-    @GetMapping
-    public String healthCheck(){ return "Staff Controller is running Successfully";}
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public String generateNewStaffId(){
+        return staffService.genenrateNewStaffId();
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveStaffMem(@RequestBody StaffDTO staffDTO){
+        System.out.println(staffDTO);
 
         if (staffDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {
@@ -60,8 +64,10 @@ public class StaffController {
     public StaffResponse getStaffMember(@PathVariable("id") String id){
         return staffService.getSelectedStaffMem(id);
     }
+
     @GetMapping(value = "allStaffMembers",produces = MediaType.APPLICATION_JSON_VALUE)  /* jacksoStaffMembers object bind karanne */
     public List<StaffDTO> getAllStaffMembers(){return staffService.getAllStaffMem(); }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteStaffMem(@PathVariable ("id") String id) {
         try {

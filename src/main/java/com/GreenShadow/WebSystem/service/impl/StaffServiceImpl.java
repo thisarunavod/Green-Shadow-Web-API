@@ -97,4 +97,19 @@ public class StaffServiceImpl implements StaffService {
     public List<StaffDTO> getAllStaffMem() {
         return mapping.convertToStaffDTOList(staffDao.findAll());
     }
+
+    @Override
+    public String genenrateNewStaffId() {
+        try {
+            List<String> allStaffIdList = staffDao.findAllIds();
+            String id = allStaffIdList .get(allStaffIdList .size() - 1);
+            char[] charArray = id.toCharArray();
+            String newID = "";
+            for (int i = 3; i <= charArray.length-1 ; i++) { newID = newID + (charArray[i]); }
+            int x = Integer.parseInt(newID);
+            return "ST_"+(x+1);
+        } catch (Exception e) {
+            return "ST_1";
+        }
+    }
 }

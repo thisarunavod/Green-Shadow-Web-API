@@ -13,4 +13,5 @@ public interface StaffService {
     void deleteStaffMem( String id );
     StaffResponse getSelectedStaffMem(String id );
     List<StaffDTO> getAllStaffMem();
+    String  genenrateNewStaffId();
 }
