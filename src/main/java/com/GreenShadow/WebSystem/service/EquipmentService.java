@@ -13,4 +13,5 @@ public interface EquipmentService {
     void deleteEquipment( String equipmentId );
     EquipmentResponse getSelectedEquipment(String equipmentId );
     List<EquipmentDTO> getAllEquipment();
+    String generateNewEquipmentId();
 }

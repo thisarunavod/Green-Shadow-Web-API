@@ -25,13 +25,16 @@ public class VehicleController {
     VehicleService vehicleService;
 
     @GetMapping
-    public String generateNewVehicleCode(){ return vehicleService.generateNewVehicleCode();}
+    public String generateNewVehicleCode(){
+         return vehicleService.generateNewVehicleCode();
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO){
 
         if (vehicleDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if (vehicleDTO.getStaffId().isEmpty())  vehicleDTO.setStaffId(null);
+        System.out.println(vehicleDTO.getStaffId());
+        if (vehicleDTO.getStaffId() == "NOT_ASSIGNED")  vehicleDTO.setStaffId(null);
         try {
             vehicleService.saveVehicle(vehicleDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

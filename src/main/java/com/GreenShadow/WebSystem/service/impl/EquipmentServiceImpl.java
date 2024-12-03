@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,5 +85,19 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<EquipmentDTO> getAllEquipment() {
         return mapping.convertToEquipmentDTOList(equipmentDao.findAll());
+    }
+
+    @Override
+    public String generateNewEquipmentId() {
+        try {
+            List<String> equipmentIds = equipmentDao.findAllEquipmentIds();
+            ArrayList<Integer> numberList = new ArrayList<>();
+            for (String equipmentId: equipmentIds) {
+                numberList.add(Integer.parseInt(equipmentId.replace("EQUIP_", "")));
+            }
+            return "EQUIP_"+ (Collections.max(numberList)+1);
+        } catch (Exception e) {
+            return "EQUIP_1";
+        }
     }
 }

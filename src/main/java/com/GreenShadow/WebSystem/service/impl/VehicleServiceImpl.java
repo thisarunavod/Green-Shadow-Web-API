@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,14 +87,14 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public String generateNewVehicleCode() {
+
         try {
-            List<String> allVehicleCodeList = vehicleDao.findAllvehicleCodes();
-            String id = allVehicleCodeList.get(allVehicleCodeList .size() - 1);
-            char[] charArray = id.toCharArray();
-            String newID = "";
-            for (int i = 4; i <= charArray.length-1 ; i++) { newID = newID + (charArray[i]); }
-            int x = Integer.parseInt(newID);
-            return "VEH_"+(x+1);
+            List<String> allvehicleCodeList = vehicleDao.findAllvehicleCodes();
+            ArrayList<Integer> numberList = new ArrayList<>();
+            for (String vCode: allvehicleCodeList) {
+                numberList.add(Integer.parseInt(vCode.replace("VEH_", "")));
+            }
+            return "VEH_"+ (Collections.max(numberList)+1);
         } catch (Exception e) {
             return "VEH_1";
         }

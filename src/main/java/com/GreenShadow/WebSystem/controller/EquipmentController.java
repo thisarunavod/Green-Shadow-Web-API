@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/equipment")
+@CrossOrigin
 public class EquipmentController {
 
     @Autowired
@@ -28,7 +29,9 @@ public class EquipmentController {
 
 
     @GetMapping
-    public String healthCheck(){ return "Equipment Controller is running Successfully";}
+    public String generateNewEquipmentId(){
+        return equipmentService.generateNewEquipmentId();
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveStaffMem(@RequestBody EquipmentDTO equipmentDTO){

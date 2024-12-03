@@ -4,6 +4,7 @@ import com.GreenShadow.WebSystem.customObj.VehicleResponse;
 import com.GreenShadow.WebSystem.dto.SuperDTO;
 import com.GreenShadow.WebSystem.entity.FieldEntity;
 import com.GreenShadow.WebSystem.entity.StaffEntity;
+import com.GreenShadow.WebSystem.entity.VehicleStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +22,7 @@ public class VehicleDTO implements SuperDTO , VehicleResponse {
     private String licensePlateNumber;
     private String category;
     private String fuelType;
-    private String status;
+    private VehicleStatus status;
     private String staffId;
     private String remarks;
 

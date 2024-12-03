@@ -22,7 +22,9 @@ public class VehicleEntity {
 
     private String fuelType;
 
-    private String status;
+    @Column(columnDefinition = "VARCHAR(100)")
+    @Enumerated(EnumType.STRING)
+    private VehicleStatus status;
 
     @ManyToOne
     @JoinColumn(name = "staffId")

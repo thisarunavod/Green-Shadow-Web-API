@@ -20,9 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -101,14 +99,15 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public String genenrateNewStaffId() {
+
         try {
             List<String> allStaffIdList = staffDao.findAllIds();
-            String id = allStaffIdList .get(allStaffIdList .size() - 1);
-            char[] charArray = id.toCharArray();
-            String newID = "";
-            for (int i = 3; i <= charArray.length-1 ; i++) { newID = newID + (charArray[i]); }
-            int x = Integer.parseInt(newID);
-            return "ST_"+(x+1);
+            ArrayList<Integer> numberList = new ArrayList<>();
+            for (String staffId: allStaffIdList) {
+                String numericStringId = staffId.replace("ST_", "");
+                numberList.add(Integer.parseInt(numericStringId));
+            }
+            return "ST_"+ (Collections.max(numberList)+1);
         } catch (Exception e) {
             return "ST_1";
         }
