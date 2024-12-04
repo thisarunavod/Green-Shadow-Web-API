@@ -8,9 +8,8 @@ import com.GreenShadow.WebSystem.dao.EquipmentDao;
 import com.GreenShadow.WebSystem.dao.FieldDao;
 import com.GreenShadow.WebSystem.dao.StaffDao;
 import com.GreenShadow.WebSystem.dto.impl.EquipmentDTO;
-import com.GreenShadow.WebSystem.entity.CropEntity;
-import com.GreenShadow.WebSystem.entity.EquipmentEntity;
-import com.GreenShadow.WebSystem.entity.VehicleEntity;
+import com.GreenShadow.WebSystem.dto.impl.StaffDTO;
+import com.GreenShadow.WebSystem.entity.*;
 import com.GreenShadow.WebSystem.exeption.DataPersistFailedException;
 import com.GreenShadow.WebSystem.exeption.VehicleNotFoundException;
 import com.GreenShadow.WebSystem.service.EquipmentService;
@@ -87,6 +86,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         return mapping.convertToEquipmentDTOList(equipmentDao.findAll());
     }
 
+
     @Override
     public String generateNewEquipmentId() {
         try {
@@ -99,5 +99,27 @@ public class EquipmentServiceImpl implements EquipmentService {
         } catch (Exception e) {
             return "EQUIP_1";
         }
+    }
+    @Override
+    public List<StaffDTO> getAvailableStaffMembers() {
+        List<StaffDTO> availableLabors = new ArrayList<>();
+        List<String> assignedIds = new ArrayList<>();
+        for (EquipmentDTO equipmentDTO : getAllEquipment()) {
+            if( equipmentDTO.getStaffId() != null) assignedIds.add(equipmentDTO.getStaffId());
+        }
+
+        List<StaffDTO> memberList = mapping.convertToStaffDTOList(staffDao.findAll()/*staffDao.findAllByDesignationContaining(Designation.Labors)*/);
+L1:     for (StaffDTO member : memberList) {
+            if (member.getDesignation() == Designation.Labors){
+                for (String id: assignedIds){
+                    if (id == member.getId() ) continue L1;
+                }
+                availableLabors.add(member);
+            }
+
+        }
+
+        return availableLabors;
+
     }
 }

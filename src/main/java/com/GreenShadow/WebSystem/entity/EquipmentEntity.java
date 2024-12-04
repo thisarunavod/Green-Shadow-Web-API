@@ -17,9 +17,11 @@ public class EquipmentEntity {
 
     private String name;
 
+    @Column(columnDefinition = "VARCHAR(100)")
     @Enumerated(EnumType.STRING)
     private EquipmentType type;
 
+    @Column(columnDefinition = "VARCHAR(100)")
     @Enumerated(EnumType.STRING)
     private EquipmentStatus status;
 

@@ -1,5 +1,6 @@
 package com.GreenShadow.WebSystem.dao;
 
+import com.GreenShadow.WebSystem.entity.Designation;
 import com.GreenShadow.WebSystem.entity.StaffEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,7 @@ public interface StaffDao extends JpaRepository<StaffEntity,String> {
 
     @Query("select id from staff")
     List<String> findAllIds();
+
+    List<StaffEntity> findAllByDesignationContaining(Designation designation);
 
 }

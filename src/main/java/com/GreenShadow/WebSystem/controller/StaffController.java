@@ -27,9 +27,7 @@ public class StaffController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveStaffMem(@RequestBody StaffDTO staffDTO){
-
-
+    public ResponseEntity<Void> saveStaffMem( @RequestBody StaffDTO staffDTO ){
         if (staffDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {
             staffService.saveStaffMem(staffDTO);

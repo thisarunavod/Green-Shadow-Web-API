@@ -14,4 +14,5 @@ public interface EquipmentService {
     EquipmentResponse getSelectedEquipment(String equipmentId );
     List<EquipmentDTO> getAllEquipment();
     String generateNewEquipmentId();
+    List<StaffDTO> getAvailableStaffMembers();
 }

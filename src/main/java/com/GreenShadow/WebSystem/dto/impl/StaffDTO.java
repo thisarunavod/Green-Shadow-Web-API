@@ -3,6 +3,7 @@ package com.GreenShadow.WebSystem.dto.impl;
 import com.GreenShadow.WebSystem.customObj.StaffResponse;
 import com.GreenShadow.WebSystem.dto.SuperDTO;
 import com.GreenShadow.WebSystem.entity.*;
+import com.GreenShadow.WebSystem.entity.embedded.FieldStaffDetailPK;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
@@ -37,7 +38,9 @@ public class StaffDTO implements SuperDTO, StaffResponse {
     private String email;
     private Role role;
 
-    private List<FieldStaffDetails> fieldStaffDetails
+    /*private List<FieldStaffDetails> fieldStaffDetails
+            = new ArrayList<>();*/
+    private List<FieldStaffDetailPK> fieldStaffDetailsPKs
             = new ArrayList<>();
     private List<String> vehicleCodeList
             = new ArrayList<>();

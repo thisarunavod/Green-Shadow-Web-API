@@ -3,6 +3,7 @@ package com.GreenShadow.WebSystem.Util;
 
 import com.GreenShadow.WebSystem.dto.impl.*;
 import com.GreenShadow.WebSystem.entity.*;
+import com.GreenShadow.WebSystem.entity.embedded.FieldStaffDetailPK;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,12 +62,21 @@ public class Mapping {
         return modelMapper.map(dto, StaffEntity.class);
     }
     public StaffDTO convertToStaffDTO(StaffEntity entity) {
+
         StaffDTO staffDTO = modelMapper.map(entity, StaffDTO.class);
         List<String> vehicleCodeList = new ArrayList<>();
         for (VehicleEntity vehicleEntity: entity.getVehicleList()) {
             vehicleCodeList.add(vehicleEntity.getVehicleCode());
         }
         staffDTO.setVehicleCodeList(vehicleCodeList);
+
+        List<FieldStaffDetailPK> fieldStaffDetailPKList = new ArrayList<>();
+        for (FieldStaffDetails  fieldStaffDetails : entity.getFieldStaffDetails()) {
+            System.out.println(fieldStaffDetails.getFieldStaffDetailPK());
+            fieldStaffDetailPKList.add(fieldStaffDetails.getFieldStaffDetailPK());
+        }
+        staffDTO.setFieldStaffDetailsPKs(fieldStaffDetailPKList);
+
         return staffDTO;
     }
 
@@ -113,6 +123,11 @@ public class Mapping {
             equipmentDTOList.add( convertToEquipmentDTO(entity) );
         }
         return equipmentDTOList;
+    }
+
+
+    public FieldStaffDetails convertToFieldStaffDetails(FieldStaffDetailsDTO dto){
+        return modelMapper.map(dto, FieldStaffDetails.class);
     }
 
 }

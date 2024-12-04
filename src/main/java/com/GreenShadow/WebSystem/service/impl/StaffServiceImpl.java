@@ -62,7 +62,9 @@ public class StaffServiceImpl implements StaffService {
         tmpStaffEntityById.get().setContactNo(staffDTO.getContactNo());
         tmpStaffEntityById.get().setEmail(staffDTO.getEmail());
         tmpStaffEntityById.get().setRole(staffDTO.getRole());
-        tmpStaffEntityById.get().setFieldStaffDetails(staffDTO.getFieldStaffDetails());
+//        tmpStaffEntityById.get().setFieldStaffDetails(
+//                staffDTO.getFieldList()
+//        );
 
         ArrayList<VehicleEntity> vehicleEntitiesList = new ArrayList<>();
         for (String vehicleCode: staffDTO.getVehicleCodeList()) {

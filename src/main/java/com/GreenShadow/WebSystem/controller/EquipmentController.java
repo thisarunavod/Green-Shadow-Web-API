@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/equipment")
@@ -34,21 +35,29 @@ public class EquipmentController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveStaffMem(@RequestBody EquipmentDTO equipmentDTO){
-
+    public ResponseEntity<Void> saveEquipment(@RequestBody EquipmentDTO equipmentDTO){
+        System.out.println(equipmentDTO);
         if (equipmentDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if (Objects.equals(equipmentDTO.getStaffId(), "N/A")) { equipmentDTO.setStaffId(null);}
+        if (Objects.equals(equipmentDTO.getFieldCode(), "N/A")) {
+            equipmentDTO.setFieldCode(null) ;
+            System.out.println(equipmentDTO.getFieldCode());
+        }
+
         try {
             equipmentService.saveEquipment(equipmentDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PatchMapping(value = "/{equipmentId}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateVehicle(@PathVariable("equipmentId") String equipmentId , @RequestBody EquipmentDTO equipmentDTO){
+    public ResponseEntity<Void> updateEquipment(@PathVariable("equipmentId") String equipmentId , @RequestBody EquipmentDTO equipmentDTO){
         try {
 
             if (equipmentDTO == null && (equipmentDTO == null || equipmentId.isEmpty())){
@@ -72,6 +81,11 @@ public class EquipmentController {
     @GetMapping(value = "allEquipments" , produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDTO> getAllEquipments(){
         return equipmentService.getAllEquipment();
+    }
+
+    @GetMapping(value = "allAvailableLabors" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StaffDTO> getAllAvailableLabors(){
+        return equipmentService.getAvailableStaffMembers();
     }
 
     @DeleteMapping(value = "/{equipmentId}")
