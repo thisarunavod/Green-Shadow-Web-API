@@ -38,8 +38,6 @@ public class StaffDTO implements SuperDTO, StaffResponse {
     private String email;
     private Role role;
 
-    /*private List<FieldStaffDetails> fieldStaffDetails
-            = new ArrayList<>();*/
     private List<FieldStaffDetailPK> fieldStaffDetailsPKs
             = new ArrayList<>();
     private List<String> vehicleCodeList
