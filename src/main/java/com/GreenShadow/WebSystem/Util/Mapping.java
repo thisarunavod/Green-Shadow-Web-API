@@ -94,6 +94,7 @@ public class Mapping {
     public VehicleEntity convertToVehicleEntity(VehicleDTO dto){
         return modelMapper.map(dto, VehicleEntity.class);
     }
+
     public VehicleDTO convertToVehicleDTO(VehicleEntity entity) {
         VehicleDTO vehicleDTO = modelMapper.map(entity, VehicleDTO.class);
         if (entity.getStaff() != null) vehicleDTO.setStaffId(entity.getStaff().getId());
