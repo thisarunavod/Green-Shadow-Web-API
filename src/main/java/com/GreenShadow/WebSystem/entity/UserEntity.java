@@ -23,9 +23,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne
-    @JoinColumn(name = "personalId", referencedColumnName = "id")
-    private StaffEntity staff;
+//    @OneToOne
+//    @JoinColumn(name = "personalId", referencedColumnName = "id")
+//    private StaffEntity staff;
 
 
 

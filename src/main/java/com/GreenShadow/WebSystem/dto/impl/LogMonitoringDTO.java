@@ -1,7 +1,9 @@
-package com.GreenShadow.WebSystem.entity;
+package com.GreenShadow.WebSystem.dto.impl;
 
+import com.GreenShadow.WebSystem.entity.CropLogDetails;
+import com.GreenShadow.WebSystem.entity.FieldsLogDetails;
+import com.GreenShadow.WebSystem.entity.StaffLogDetails;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -16,31 +18,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+public class LogMonitoringDTO {
 
-@Entity(name = "monitoring_log")
-public class MonitoringLogEntity {
-
-    @Id
     private String logCode;
-
     private LocalDate logDate;
-
     private String observation;
-
-    @Column(columnDefinition = "LONGTEXT")
     private String observedImage;
 
-    @OneToMany(mappedBy = "monitoringLog")
     private List<CropLogDetails> cropLogDetails
             = new ArrayList<>();
 
-    @OneToMany(mappedBy = "monitoringLog")
     private List<FieldsLogDetails> fieldsLogDetails
             = new ArrayList<>();
 
-    @OneToMany(mappedBy = "monitoringLog")
     private List<StaffLogDetails> staffLogDetails
             = new ArrayList<>();
-
 
 }

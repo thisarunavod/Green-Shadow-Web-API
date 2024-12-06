@@ -32,7 +32,12 @@ public class CropController {
     private CropService cropService;
 
     @GetMapping
-    public String healthCheck(){ return "Crop Controller is running Successfully";}
+    public String generateNewCropCode(){
+        return cropService.generateNewCropCode();
+    }
+
+
+
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveCrop(

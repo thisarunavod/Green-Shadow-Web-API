@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,6 +83,28 @@ public class CropServiceImpl implements CropService {
     @Override
     public List<CropDTO> getAllCropsByFieldCode(String fieldCode) {
         return mapping.convertToCropDTOList(cropDao.findAllByField_FieldCode(fieldCode));
+    }
+
+    @Override
+    public String generateNewCropCode() {
+
+        try {
+            List<String> allCropCodeList = cropDao.findAllCropCodes();
+            ArrayList<Integer> numberList = new ArrayList<>();
+            for (String cropCode: allCropCodeList) {
+                String numericStringId = cropCode.replace("CRP_", "");
+                numberList.add(Integer.parseInt(numericStringId));
+            }
+            return "CRP_"+ (Collections.max(numberList)+1);
+        } catch (Exception e) {
+            return "CRP_1";
+        }
+
+    }
+
+    @Override
+    public List<String> getAllCropCodes() {
+        return cropDao.findAllCropCodes();
     }
 
 

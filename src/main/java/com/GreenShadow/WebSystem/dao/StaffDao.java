@@ -17,4 +17,6 @@ public interface StaffDao extends JpaRepository<StaffEntity,String> {
 
     List<StaffEntity> findAllByDesignationContaining(Designation designation);
 
+
+
 }

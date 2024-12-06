@@ -14,4 +14,6 @@ public interface CropService {
     CropResponse getSelectedCrop(String cropCode );
     List<CropDTO> getAllCrops();
     List<CropDTO> getAllCropsByFieldCode(String fieldCode);
+    String generateNewCropCode();
+    List<String> getAllCropCodes();
 }
