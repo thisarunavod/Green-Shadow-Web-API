@@ -6,6 +6,7 @@ import com.GreenShadow.WebSystem.dto.impl.FieldDTO;
 import java.util.List;
 
 public interface FieldService {
+    // hello
 
     void saveField(FieldDTO fieldDTO);
     void updateField(String field_code,FieldDTO fieldDTO);
