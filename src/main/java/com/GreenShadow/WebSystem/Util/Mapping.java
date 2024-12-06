@@ -19,6 +19,12 @@ public class Mapping {
     @Autowired
     private ModelMapper modelMapper;
 
+
+    public  UserEntity convertToUserEntity(UserDTO dto){
+        return modelMapper.map(dto, UserEntity.class);
+    }
+
+
     public FieldEntity convertToFieldEntity(FieldDTO dto){
         return modelMapper.map(dto, FieldEntity.class);
     }

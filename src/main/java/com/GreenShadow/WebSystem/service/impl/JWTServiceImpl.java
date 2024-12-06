@@ -1,11 +1,12 @@
-/*
-package lk.ijse.NoteTakerV2.service;
+package com.GreenShadow.WebSystem.service.impl;
 
+import com.GreenShadow.WebSystem.service.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ import java.util.function.Function;
 
 @Service
 public class JWTServiceImpl implements JWTService {
+
+
     @Value("${token.key}")
     private String jwtKey;
 
     @Override
     public String extractUsername(String token) {
-        return extractClaim(token,Claims::getSubject);
+        return extractClaim(token, Claims::getSubject);
     }
 
     @Override
@@ -84,5 +87,4 @@ public class JWTServiceImpl implements JWTService {
         byte[] decode = Decoders.BASE64.decode(jwtKey);
         return Keys.hmacShaKeyFor(decode);
     }
-
-}*/
+}

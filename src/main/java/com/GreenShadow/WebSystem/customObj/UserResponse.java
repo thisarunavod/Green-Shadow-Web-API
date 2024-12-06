@@ -1,7 +1,5 @@
-/*
-package lk.ijse.NoteTakerV2.customObj;
+package com.GreenShadow.WebSystem.customObj;
 
 public interface UserResponse {
 
 }
-*/

@@ -1,20 +1,23 @@
-/*
-package lk.ijse.NoteTakerV2.service;
+package com.GreenShadow.WebSystem.service.impl;
 
-import lk.ijse.NoteTakerV2.Util.Mapping;
-import lk.ijse.NoteTakerV2.dao.UserDao;
-import lk.ijse.NoteTakerV2.dto.impl.UserDTO;
-import lk.ijse.NoteTakerV2.jwtModels.JwtAuthResponse;
-import lk.ijse.NoteTakerV2.jwtModels.SignIn;
+import com.GreenShadow.WebSystem.Util.Mapping;
+import com.GreenShadow.WebSystem.dao.UserDao;
+import com.GreenShadow.WebSystem.dto.impl.UserDTO;
+import com.GreenShadow.WebSystem.jwtModels.JwtAuthResponse;
+import com.GreenShadow.WebSystem.jwtModels.SignIn;
+import com.GreenShadow.WebSystem.service.AuthenticationService;
+import com.GreenShadow.WebSystem.service.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceIMPL implements AuthenticationService {
+
     private final UserDao userDao;
     private final JWTService jwtService;
     private final Mapping mapping;
@@ -46,4 +49,4 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
         var refreshToken = jwtService.refreshToken(userEntity);
         return JwtAuthResponse.builder().token(refreshToken).build();
     }
-}*/
+}

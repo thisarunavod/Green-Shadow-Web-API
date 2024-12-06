@@ -1,14 +1,14 @@
-/*
-package lk.ijse.NoteTakerV2.service;
+package com.GreenShadow.WebSystem.service;
 
-import lk.ijse.NoteTakerV2.dto.impl.UserDTO;
-import lk.ijse.NoteTakerV2.jwtModels.JwtAuthResponse;
-import lk.ijse.NoteTakerV2.jwtModels.SignIn;
+import com.GreenShadow.WebSystem.dto.impl.UserDTO;
+import com.GreenShadow.WebSystem.jwtModels.JwtAuthResponse;
+import com.GreenShadow.WebSystem.jwtModels.SignIn;
 
 public interface AuthenticationService {
     JwtAuthResponse signIn(SignIn signIn);
     JwtAuthResponse signUp(UserDTO signUp);
     JwtAuthResponse refreshToken(String accessToken);
 
+//    void saveUser(UserDTO buildUserDTO);
+
 }
-*/
