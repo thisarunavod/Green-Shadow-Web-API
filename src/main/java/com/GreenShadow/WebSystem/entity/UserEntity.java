@@ -25,8 +25,6 @@ public class UserEntity {
 
 //    @OneToOne
 //    @JoinColumn(name = "personalId", referencedColumnName = "id")
-//    private StaffEntity staff;
-
-
+//    private StaffEntity s
 
 }
